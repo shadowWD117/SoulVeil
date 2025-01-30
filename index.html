@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Veil</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        #menu {
+            position: absolute;
+            display: none;
+            text-align: center;
+        }
+        #menu.active {
+            display: flex;
+            flex-direction: column;
+        }
+        #menu {
+            background-image: url('intro.png');
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            transition: background-image 1s ease-in-out;
+        }
+
+@keyframes aw {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+
+
+@keyframes menot {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+@keyframes menin {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        button {
+            position: absolute;
+            width: 50px;
+            padding: 10px 10px;
+            margin: 10px;
+            left: 2%;
+            top: 250px;
+            background: transparent;
+            color: #fff;
+            border: none;
+            transition: background 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        #start-game {
+            top: 250px;
+        }
+
+        #settings {
+            top: 280px;
+        }
+
+        #about {
+            top: 310px;
+        }
+
+        #awal {
+            position: absolute;
+            width: 100px;
+            height: 50px;
+            font-size: 20px;
+            text-align: center;
+            border: 1px solid white;
+            background-color: transparent;
+            color: white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+
+        #alr {
+            position: absolute;
+            width: 90%;
+            font-size: 12px;
+            display: block;
+            text-align: center;
+            border: none;
+            background-color: transparent;
+            color: white;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #abouis {
+            display: none;
+            position: absolute;
+            white-space: nowrap;
+            font-size: 20px;
+            text-align: center;
+            border: none;
+            background-color: transparent;
+            color: white;
+            top: 55%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+        }
+
+        #music {
+            display: none;
+            position: absolute;
+            white-space: nowrap;
+            font-size: 20px;
+            text-align: center;
+            border: none;
+            background-color: transparent;
+            color: white;
+            top: 55%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+        }
+
+        #note {
+            position: absolute;
+            font-size: 8px;
+            width: 270px;
+            text-align: center;
+            border: none;
+            background-color: transparent;
+            color: white;
+            left: 50%;
+            bottom: 8%;
+            transform: translate(-50%, -50%);
+        }
+
+        #ttp {
+            display: none;
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: none;
+            font-size: 10px;
+            top: 30%;
+            left: 70%;
+        }
+
+        #pilihan {
+            display: none;
+            flex-direction: column;
+            margin: 1px 0px;
+            position: absolute;
+        }
+
+        #pilihan1, #pilihan2 {
+            position: relative;
+            width: 100px;
+            height: 30px;
+            margin: 20px;
+            text-align: center;
+            background-color: transparent;
+            color: white;
+            border: 0.5px solid silver;
+            font-size: 15px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #input {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            background-color: transparent;
+            color: #fff;
+            outline: none;
+            caret-color: #fff;
+        }
+
+        input::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        #tx {
+            font-size: 24px;
+            line-height: 1.5;
+            /* Mengatur jarak antar baris */
+            overflow: hidden;
+            /* Menyembunyikan teks yang belum diketik */
+            white-space: normal;
+            /* Izinkan teks untuk otomatis membungkus */
+            text-align: center;
+            word-break: break-word;
+            /* Pecahkan kata jika melebihi lebar */
+            overflow-wrap: break-word;
+            /* Tambahan untuk keamanan */
+            max-width: 100%;
+            /* Awalnya lebar teks adalah 0 */
+            font-size: 10px;
+            animation: typing 1s ease forwards;
+        }
+
+@keyframes typing {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        #dibox {
+            display: none;
+            width: 90%;
+            height: 10%;
+            position: absolute;
+            overflow: hidden;
+            bottom: 10%;
+            opacity: 0;
+            background-color: rgba(9, 9, 9, 0.5);
+            border: 1px solid silver;
+            animation: diba 1s ease forwards;
+        }
+
+@keyframes diba {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #credit {
+            display: none;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            text-align: center;
+            font-size: 20px;
+            line-height: 25px;
+            top: 50%;
+            left: 50%;
+            background-color: transparent;
+            animation: cre 10s ease forwards;
+        }
+
+@keyframes cre {
+            0% {
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        #cer1, #cer2 {
+            display: none;
+            width: 90%;
+            position: absolute;
+            height: 100%;
+            text-align: center;
+            font-size: 10px;
+            top: 50%;
+            background-color: transparent;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <button id="awal" type="submit">siap </button>
+    <h5 id="alr">game ini mengandung adegan yang bagi beberapa pemain mungkin mengganggu dan di harap agar pemain melapor kan masalah yang terjadi selama game berlangsung untuk perbaikan sebagai salah satu cara untuk mendukung developer. <br> siap bermain?</h5>
+    <div id="menu" class="active">
+        <button id="start-game">Mulai</button>
+        <button id="settings">Pengaturan</button>
+        <button id="about">Tentang</button>
+        <div id="abouis">
+            developer<br>shadow<p>
+                game engine<br>code editor<p id="contact">
+                    contact/more/request story<br> <a href="https://wa.me/+6281323064408" target="_blank" rel="noopener noreferrer">Whatsapp</a><br><a href="https://shadowwd117.github.io/Portofolio/" target="_blank" rel="noopener noreferrer">More</a>
+                </p>
+            </p>
+        </div>
+        <div id="note">
+            Peringatan! Menggunakan mode Desktop atau bermain pada PC memungkin kan perubahan tata letak objek dan elemen. Disaran agar menggunakan device dengan rasio layar 9:16 atau sejenis nya.
+        </div>
+        <div id="music">
+            musik<p id="onof">
+                on
+            </p>
+            <br> <input type="email" name="cheat" id="cht" max="10" placeholder="cheat" />
+        </div>
+    </div>
+    <div id="pilihan">
+        <div id="pilihan1">
+            masuk
+        </div>
+        <div id="pilihan2">
+            pergi
+        </div>
+    </div>
+    <audio id="bgm1" src="bgm1.mp3" loop></audio>
+    <audio id="bgm2" src="bgm2.mp3" loop></audio>
+    <audio id="ui1" src="ui.mp3"></audio>
+    <audio id="jm" src="jm.mp3"></audio>
+    <audio id="malam" src="malam.mp3"></audio>
+    <audio id="jump1" src="jump1.mp3"></audio>
+    <audio id="jump2" src="jump2.mp3"></audio>
+    <audio id="pnt" src="pintu.mp3"></audio>
+    <audio id="hrr" src="horror1.mp3"></audio>
+    <audio id="doc" src="doc.mp3"></audio>
+    <button id="ttp" type="submit">tutup</button>
+
+    <div id="dibox">
+        <h5 id="tx">sudah sangat lama setelah kejadian itu. harus kah aku pergi?</h5>
+    </div>
+
+    <div id="credit">
+        developer <br> shadow <p>
+            visual <br> shadow
+        </p>
+        <p>
+            music <br> shadow
+        </p>
+        <p>
+            game engine <br> code editor
+        </p>
+        <p>
+            art <br> pixel studio
+        </p>
+        <p>
+            source bgm <br> pixabay
+        </p>
+        <p>
+            thanks to play <br> SoulVeil
+        </p>
+    </div>
+
+    <div id="cer1">
+        terkadang, pergi dan melupakan apa yang sudah terjadi bisa saja jalan yang memiliki tujuan yang jelas
+    </div>
+
+    <script>
+        // Mendapatkan elemen-elemen
+        const awal = document.getElementById('awal');
+        const alr = document.getElementById('alr');
+        const menu = document.getElementById('menu');
+        const pilihan = document.getElementById('pilihan');
+        const startGame = document.getElementById('start-game');
+        const settings = document.getElementById('settings');
+        const about = document.getElementById('about');
+        const pilihan1 = document.getElementById('pilihan1');
+        const pilihan2 = document.getElementById('pilihan2');
+        const bgm1 = document.getElementById('bgm1');
+        const bgm2 = document.getElementById('bgm2');
+        const ui1 = document.getElementById('ui1');
+        const jump1 = document.getElementById('jump1');
+        const hrr = document.getElementById('hrr');
+        const doc = document.getElementById('doc');
+        const jump2 = document.getElementById('jump2');
+        const jm = document.getElementById('jm');
+        const malam = document.getElementById('malam');
+        const pnt = document.getElementById('pnt');
+        const music = document.getElementById('music');
+        const onof = document.getElementById('onof');
+        const contact = document.getElementById('contact');
+        const cht = document.getElementById('cht');
+        const dibox = document.getElementById('dibox');
+        const tx = document.getElementById('tx');
+        const credit = document.getElementById('credit');
+        const cer1 = document.getElementById('cer1');
+        const cer2 = document.getElementById('cer2');
+
+        let clickCount = 0;
+        let pil1 = 0;
+
+        awal.addEventListener('click', () => {
+            menu.style.animation = "5s aw ease forwards";
+            awal.style.display = "none";
+            alr.style.display = "none";
+            bgm1.play();
+        });
+
+
+        // Event listener tombol
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+startGame.addEventListener('click', () => {
+    // Resume AudioContext untuk memastikan audio diizinkan
+    audioContext.resume().then(() => {
+        console.log('AudioContext aktif.');
+
+        // Gesture pengguna untuk izin
+        malam.play()
+            .then(() => {
+                malam.pause();
+                malam.currentTime = 0; // Simpan izin gesture
+                console.log('Izin gesture untuk malam diterima');
+            })
+            .catch((error) => console.error('Error gesture pada malam:', error));
+
+        // Logika lainnya
+        menu.style.animation = "5s menot linear forwards";
+        menu.style.transition ="background-image 0s ease";
+        console.log("Tombol 'Mulai' ditekan.");
+
+        setTimeout(() => {
+            startGame.style.display = "none";
+            settings.style.display = "none";
+            music.style.display = "none";
+            about.style.display = "none";
+            abouis.style.display = "none";
+            note.style.display = "none";
+            ttp.style.display = "none";
+            tx.textContent = "sudah sangat lama setelah kejadian itu. harus kah aku pergi?";
+        }, 1000);
+
+        setTimeout(() => {
+            menu.style.backgroundImage = "url('pintu-d.png')";
+            menu.style.animation = "1s menin linear forwards";
+            dibox.style.display = "block";
+
+            bgm1.pause();
+            bgm2.pause();
+
+            malam.play()
+                .then(() => console.log('Audio malam diputar setelah gesture'))
+                .catch((error) => console.error('Error saat memutar malam:', error));
+        }, 9000);
+
+        setTimeout(() => {
+            pilihan.style.display = "block";
+            menu.style.transition ="background-image 1s ease";
+            malam.play()
+                .then(() => console.log('Audio malam diputar kembali setelah delay'))
+                .catch((error) => console.error('Error saat memutar malam:', error));
+        }, 12000);
+    }).catch((error) => console.error('Error saat mengaktifkan AudioContext:', error));
+});
+
+
+        settings.addEventListener('click', () => {
+            console.log("Tombol '`Pengaturan' ditekan.")
+            ui1.play();
+            music.style.display = "block";
+            abouis.style.display = "none";
+            ttp.style.display = "block";
+        });
+
+        onof.addEventListener("click", () => {
+
+            clickCount++;
+
+            if (clickCount === 1) {
+                bgm1.pause();
+                bgm2.pause();
+                ui1.play();
+                onof.textContent = "off";
+            } else {
+                bgm1.play();
+                ui1.play();
+                onof.textContent = "on";
+                clickCount = 0;
+            }
+
+        });
+
+
+        about.addEventListener('click', () => {
+            console.log("Tombol 'Tentang' ditekan.");
+            ui1.play();
+            abouis.style.display = "block";
+            music.style.display = "none";
+            ttp.style.display = "block";
+        });
+
+        ttp.addEventListener("click", () => {
+            abouis.style.display = "none";
+            music.style.display = "none";
+            ttp.style.display = "none";
+            ui1.play();
+            console.log("menutup menu");
+        });
+
+        pilihan1.addEventListener('click', () => {
+    pil1++;
+    if (pil1 === 1) {
+        pilihan.style.display = "none";
+        menu.style.backgroundImage = "url('pintu-dop.png')";
+        tx.textContent = "aku akan masuk";
+        ui1.play();
+        pnt.play();
+
+        setTimeout(function() {
+            menu.style.backgroundImage = "none";
+            dibox.style.display = "none";
+            tx.textContent = "gadis itu....";
+        }, 4000);
+
+        setTimeout(function() {
+            menu.style.backgroundImage = "url('mn1.png')";
+            dibox.style.display = "block";
+        }, 6000);
+
+        setTimeout(function() {
+            pilihan.style.display = "block";
+            pilihan1.textContent = "perhatikan";
+        }, 10000);
+    } else if (pil1 === 2) {
+        menu.style.backgroundImage = "url('mn2.png')";
+        dibox.style.display = "block";
+        pilihan1.style.display = "none";
+        pilihan2.style.display = "none";
+        jump1.play();
+        tx.textContent ="kemana gadis itu?"
+        jm.play()
+            .then(() => {
+                jm.pause();
+                jm.currentTime = 0; // Simpan izin gesture
+                console.log('Izin gesture untuk jm diterima');
+            })
+            .catch((error) => console.error('Error gesture pada jm:', error));
+
+        setTimeout(function() {
+            pilihan.style.display = "block";
+            pilihan1.style.display = "block";
+            pilihan1.textContent ="tunggu";
+            pilihan2.style.display = "block";
+        }, 2000);
+    } else if (pil1 === 3) {
+    menu.style.backgroundImage = "url('jam.gif')";
+    pilihan.style.display = "none";
+    dibox.style.display = "none";
+    
+    jm.play()
+        .then(() => console.log('Audio jm diputar kembali setelah delay'))
+        .catch((error) => console.error('Error saat memutar jm:', error));
+    
+    jump2.play()
+        .then(() => {
+            jump2.pause();
+            jump2.currentTime = 0; // Simpan izin gesture
+            console.log('Izin gesture untuk jump2 diterima');
+
+            hrr.play()
+                .then(() => {
+                    hrr.pause();
+                    hrr.currentTime = 0; // Simpan izin gesture
+                    console.log('Izin gesture untuk hrr diterima');
+
+                    setTimeout(function() {
+                        jm.pause();
+                        menu.style.backgroundImage = "url('mn3.png')";
+                        menu.style.transition = "none";
+                        pilihan.style.display = "none";
+
+                        hrr.play()
+                            .then(() => console.log('Audio hrr diputar kembali setelah delay'))
+                            .catch((error) => console.error('Error saat memutar hrr:', error));
+                    }, 3000);
+
+                    setTimeout(function() {
+                        pilihan.style.display = "block";
+                        dibox.style.display = "block";
+                        tx.textContent = "sepertinya aku merindukan nya.";
+                        pilihan1.textContent = "tetap disini";
+                    }, 6000);
+                })
+                .catch((error) => console.error('Error saat memutar hrr:', error));
+        })
+        .catch((error) => console.error('Error saat memutar jump2:', error));
+} else if (pil1 === 4) {
+    menu.style.backgroundImage = "url('mn4.png')";
+    pilihan.style.display = "none";
+    tx.textContent = "....";
+    malam.pause();
+
+    setTimeout(function() {
+        pilihan1.textContent = "perhatikan";
+        menu.style.backgroundImage = "url('mn5.png')";
+        tx.textContent = "......";
+    }, 3000);
+
+    setTimeout(function() {
+        menu.style.backgroundImage = "url('jump.gif')";
+        jump2.play()
+            .then(() => {
+                console.log('Audio jump2 diputar kembali setelah delay');
+                dibox.style.display = "none"; // Pindahkan ini ke dalam then
+            })
+            .catch((error) => console.error('Error saat memutar jump2:', error));
+    }, 6000);
+    
+    setTimeout(function(){
+        menu.style.backgroundImage = "url('blk.png')";
+    }, 7000);
+    
+    setTimeout(function() { 
+        pilihan.style.display = "block";
+        pilihan1.textContent = ".....";
+    }, 9000);
+    
+} else if (pil1 === 5) {
+    doc.play();
+    pilihan.style.display = "none";
+    hrr.pause();
+    setTimeout(function() { 
+        pilihan.style.display = "block";
+        pilihan1.style.display = "none";
+        pilihan2.textContent = "bangun";
+        cer1.textContent ="the end";
+        pil1 =0;
+    }, 10000);
+}
+});
+
+        pilihan2.addEventListener('click', () => {
+            tx.textContent = "sepertinya aku harus menjauh";
+            bgm1.pause();
+            bgm2.play();
+            ui1.play();
+            malam.pause();
+            pilihan.style.display = "none";
+
+            setTimeout(function() {
+                cer1.style.display = "block";
+                dibox.style.display = "none";
+            }, 3000);
+            setTimeout(function() {
+                credit.style.display = "block";
+                cer1.style.display = "none";
+                menu.style.display = "none";
+            }, 10000);
+            setTimeout(function() {
+                menu.style.backgroundImage = "url('end.png')";
+                startGame.style.display = "block";
+                settings.style.display = "block";
+                about.style.display = "block";
+                clickCount = 1;
+                credit.style.display = "none";
+                menu.style.display = "block";
+                note.style.display ="block";
+            }, 20000);
+
+        });
+
+        // Array teks untuk placeholder
+        const placeholderTexts = [
+            "Plot?",
+            "Apa yang kamu cari?",
+            "Selamat datang!",
+            "Kamu shadow?", "Cheat?", "Plot dan Explanation", "Gamer?", "Youtuber?", "QubeGame", "AI"
+        ];
+
+        let currentIndex = 0; // Indeks teks saat ini
+        const inputElement = document.getElementById("cht");
+
+        // Fungsi untuk mengubah teks placeholder
+        function changePlaceholder() {
+            inputElement.setAttribute("placeholder",
+                placeholderTexts[currentIndex]);
+            currentIndex = (currentIndex + 1) % placeholderTexts.length; // Pergantian teks (loop)
+        }
+
+        // Interval untuk mengganti teks setiap 2 detik
+        setInterval(changePlaceholder, 2000);
+
+        // Mulai dengan teks pertama
+        changePlaceholder();
+
+
+        // Tambahkan event listener untuk memantau perubahan input
+        cht.addEventListener('input', function () {
+            const inputValue = cht.value.toLowerCase();
+
+            // Bandingkan input dengan kondisi yang ditentukan
+            if (inputValue === 'shadow') {
+                alert('Dia pengembang game ini. Apakah ada hal buruk yang dilakukan nya?');
+            } else if (inputValue === 'droomp') {
+                alert('Sepertinya Anda membutuhkan penjelasan cerita.');
+            } else if (inputValue === 'soulveil') {
+                alert('soulveil menjadi simbol perjalanan seseorang melalui kesedihan, di mana tirai tersebut secara perlahan akan tersingkap, memperlihatkan harapan dan pemahaman baru tentang kehilangan.');
+            } else if (inputValue === 'miawaug') {
+                alert('0.0000% MiawAug playing this game.');
+            } else if (inputValue === 'qubeGame') {
+                alert('game kotak?');
+            } else if (inputValue === 'ai') {
+                alert('chatGPT berperan besar dalam project ini');
+            }
+        });
+
+    </script>
+</body>
+</html>
